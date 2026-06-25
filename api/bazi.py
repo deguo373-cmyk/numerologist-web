@@ -1,12 +1,11 @@
-"""八字排盘 - 纯计算函数，由 api/index.py 统一路由"""
+"""八字排盘 - 纯计算函数"""
 import json
-import sys
-sys.path.insert(0, '/var/task')
 
 try:
     from lunar_python import Solar, Lunar, EightChar
 except ImportError:
     import subprocess
+    import sys
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'lunar-python', '-q'])
     from lunar_python import Solar, Lunar, EightChar
 

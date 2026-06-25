@@ -1,12 +1,12 @@
-"""奇门遁甲 - 纯计算函数，由 api/index.py 统一路由"""
+"""奇门遁甲 - 纯计算函数"""
 import json
-import sys
 import datetime
 
 try:
     from lunar_python import Solar, Lunar
 except ImportError:
     import subprocess
+    import sys
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'lunar-python', '-q'])
     from lunar_python import Solar, Lunar
 
