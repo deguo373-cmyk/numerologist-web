@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/*.py": {
+      "maxDuration": 30,
+      "runtime": "python3.9"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
