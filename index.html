@@ -588,8 +588,7 @@ input:focus, select:focus {
 <script>
 // ===== State =====
 const state = { bazi: { gender: 0 }, ziwei: { gender: 0 } };
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? '' : '/api';
+const API_BASE = '';
 
 // ===== System switching =====
 function switchSystem(name) {
@@ -646,7 +645,7 @@ async function calculateBazi() {
   };
 
   try {
-    const resp = await fetch(`${API_BASE}/api/bazi.py`, {
+    const resp = await fetch(`/api/bazi`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -730,7 +729,7 @@ async function calculateQimen() {
   };
 
   try {
-    const resp = await fetch(`${API_BASE}/api/qimen.py`, {
+    const resp = await fetch(`/api/qimen`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -786,7 +785,7 @@ async function calculateZiwei() {
   };
 
   try {
-    const resp = await fetch(`${API_BASE}/api/ziwei.py`, {
+    const resp = await fetch(`/api/ziwei`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)

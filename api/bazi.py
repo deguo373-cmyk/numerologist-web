@@ -1,5 +1,4 @@
-"""八字排盘 API - Vercel Serverless Function"""
-from http.server import BaseHTTPRequestHandler
+"""八字排盘 - 纯计算函数，由 api/index.py 统一路由"""
 import json
 import sys
 sys.path.insert(0, '/var/task')
@@ -10,32 +9,6 @@ except ImportError:
     import subprocess
     subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'lunar-python', '-q'])
     from lunar_python import Solar, Lunar, EightChar
-
-
-class handler(BaseHTTPRequestHandler):
-    def do_OPTIONS(self):
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.end_headers()
-
-    def do_POST(self):
-        try:
-            length = int(self.headers.get('content-length', 0))
-            body = json.loads(self.rfile.read(length)) if length else {}
-            
-            result = calculate_bazi(body)
-            self._json_response(200, result)
-        except Exception as e:
-            self._json_response(400, {'error': str(e)})
-
-    def _json_response(self, status, data):
-        self.send_response(status)
-        self.send_header('Content-Type', 'application/json; charset=utf-8')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
-        self.wfile.write(json.dumps(data, ensure_ascii=False).encode('utf-8'))
 
 
 def calculate_bazi(body):

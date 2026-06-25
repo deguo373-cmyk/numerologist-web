@@ -1,5 +1,4 @@
-"""紫微斗数排盘 API - Vercel Serverless Function"""
-from http.server import BaseHTTPRequestHandler
+"""紫微斗数 - 纯计算函数，由 api/index.py 统一路由"""
 import json
 
 try:
@@ -10,32 +9,7 @@ except ImportError:
     from lunar_python import Solar, Lunar
 
 
-class handler(BaseHTTPRequestHandler):
-    def do_OPTIONS(self):
-        self.send_response(200)
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
-        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.end_headers()
-
-    def do_POST(self):
-        try:
-            length = int(self.headers.get('content-length', 0))
-            body = json.loads(self.rfile.read(length)) if length else {}
-            result = calculate_ziwei(body)
-            self._json_response(200, result)
-        except Exception as e:
-            self._json_response(400, {'error': str(e)})
-
-    def _json_response(self, status, data):
-        self.send_response(status)
-        self.send_header('Content-Type', 'application/json; charset=utf-8')
-        self.send_header('Access-Control-Allow-Origin', '*')
-        self.end_headers()
-        self.wfile.write(json.dumps(data, ensure_ascii=False).encode('utf-8'))
-
-
-# 紫微斗数基础数据
+# ===== 常量定义 =====
 ZI_WEI_STARS = ["紫微", "天机", "太阳", "武曲", "天同", "廉贞",
                 "天府", "太阴", "贪狼", "巨门", "天相", "天梁", "七杀", "破军"]
 
